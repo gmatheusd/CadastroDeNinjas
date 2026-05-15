@@ -1,4 +1,4 @@
-package br.com.monkeyscript.CadastroDeNinjas;
+package br.com.monkeyscript.CadastroDeNinjas.Ninjas;
 
 import org.springframework.web.bind.annotation.*;
 
