@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping
+@RequestMapping("/missoes")
 public class MissoesController {
 
     @GetMapping("/boasVindas")
@@ -13,3 +13,4 @@ public class MissoesController {
         return "Essa é minha mensagem na rota de missoes";
     }
 }
+
