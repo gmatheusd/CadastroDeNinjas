@@ -12,19 +12,19 @@ public class NinjaController {
     }
 
     // Adicionar ninja (CREATE)
-    @GetMapping("/criar")
+    @PostMapping("/criar")
     public String criarNinja() {
         return "Ninja criado";
     }
 
     // Mostrar todos os ninjas (READ)
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public String mostrarTodosOsNinjas() {
         return "Mostrar Ninjas";
     }
 
     // Mostrar ninja por Id (READ)
-    @GetMapping("/todosID")
+    @GetMapping("/listarID")
     public String mostrarTodosOsNinjasPorId() {
         return "Mostrar Ninjas por ID";
     }
