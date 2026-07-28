@@ -4,30 +4,38 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MissoesService {
 
     private MissoesRepository missoesRepository;
+    private MissoesMapper missoesMapper;
 
-    public MissoesService(MissoesRepository missoesRepository) {
+    public MissoesService(MissoesRepository missoesRepository, MissoesMapper missoesMapper) {
         this.missoesRepository = missoesRepository;
+        this.missoesMapper = missoesMapper;
     }
 
     // Listar todas as missoes
-    public List<MissoesModel> listarMissoes() {
-        return missoesRepository.findAll();
+    public List<MissoesDTO> listarMissoes() {
+        List<MissoesModel> missoes = missoesRepository.findAll();
+        return missoes.stream()
+                .map(missoesMapper::map)
+                .collect(Collectors.toList());
     }
 
     // Listar as missoes por Id
-    public MissoesModel listarMissoesPorId(Long id) {
+    public MissoesDTO listarMissoesPorId(Long id) {
         Optional<MissoesModel> missaoPorId = missoesRepository.findById(id);
-        return missaoPorId.orElse(null);
+        return missaoPorId.map(missoesMapper::map).orElse(null);
     }
 
     // Criar uma nova missao
-    public MissoesModel criarMissao(MissoesModel missao) {
-        return missoesRepository.save(missao);
+    public MissoesDTO criarMissao(MissoesDTO missoesDTO) {
+        MissoesModel missao = missoesMapper.map(missoesDTO);
+        missao = missoesRepository.save(missao);
+        return missoesMapper.map(missao);
     }
 
     // Deletar uma missao
@@ -36,10 +44,13 @@ public class MissoesService {
     }
 
     // Alterar missoes
-    public MissoesModel alterarMissaoPorId(Long id, MissoesModel missaoAtualizada) {
-        if (missoesRepository.existsById(id)) {
+    public MissoesDTO alterarMissaoPorId(Long id, MissoesDTO missoesDTO) {
+        Optional<MissoesModel> missoaoExistente = missoesRepository.findById(id);
+        if (missoaoExistente.isPresent()) {
+            MissoesModel missaoAtualizada = missoesMapper.map(missoesDTO);
             missaoAtualizada.setId(id);
-            return missoesRepository.save(missaoAtualizada);
+            MissoesModel missaoSalva = missoesRepository.save(missaoAtualizada);
+            return missoesMapper.map(missaoSalva);
         }
         return null;
     }
