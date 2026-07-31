@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        /* Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#f4f7fc;
+            padding:40px;
+            color:#333;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+            color:#1f2937;
+            font-size:2rem;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:#fff;
+            border-radius:15px;
+            overflow:hidden;
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+        }
+
+        thead{
+            background:linear-gradient(90deg,#2563eb,#3b82f6);
+            color:white;
+        }
+
+        thead th{
+            padding:18px;
+            text-align:left;
+            font-weight:600;
+        }
+
+        tbody td{
+            padding:16px;
+            border-bottom:1px solid #ececec;
+        }
+
+        tbody tr{
+            transition:.3s;
+        }
+
+        tbody tr:hover{
+            background:#f8fbff;
+        }
+
+        tbody tr:last-child td{
+            border-bottom:none;
+        }
+
+        img{
+            width:55px;
+            height:55px;
+            object-fit:cover;
+            border-radius:50%;
+            border:3px solid #3b82f6;
+        }
+
+        /* Mission text */
+        td span{
+            font-size:14px;
+        }
+
+        /* Action buttons */
+        .actions{
+            display:flex;
+            gap:10px;
+        }
+
+        .actions a{
+            text-decoration:none;
+            padding:8px 15px;
+            border-radius:8px;
+            color:white;
+            font-size:14px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .btn-add {
+            background: #3cbd6a;
+            margin: 10px;
+        }
+
+        .btn-add:hover {
+            background: #287e46;
+        }
+
+        .btn-view{
+            background:#3b82f6;
+        }
+
+        .btn-view:hover{
+            background:#2563eb;
+        }
+
+        .btn-edit{
+            background:#f59e0b;
+        }
+
+        .btn-edit:hover{
+            background:#d97706;
+        }
+
+        .btn-delete{
+            background:#ef4444;
+        }
+
+        .btn-delete:hover{
+            background:#dc2626;
+        }
+
+        /* Responsive */
+        @media(max-width:900px){
+
+            body{
+                padding:15px;
+            }
+
+            table{
+                display:block;
+                overflow-x:auto;
+                white-space:nowrap;
+            }
+
+        }
+    </style>
+    <title>Tabela de Ninjas</title>
+</head>
+<body>
+<h1>Lista de ninjas</h1>
+<div class="actions">
+<a th:href="@{/ninjas/ui/adicionar}" class="btn-add">+ Adicionar Ninja</a>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Email</th>
+            <th>Rank</th>
+            <th>Missoes</th>
+            <th>Opções</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each ="ninja: ${ninjas}">
+
+        <td th:text="${ninja.id}"></td>
+        <td> <img th:src="${ninja.imgUrl}" alt="Imagem do Ninja"></td>
+        <td th:text="${ninja.nome}"></td>
+        <td th:text="${ninja.idade}"></td>
+        <td th:text="${ninja.email}"></td>
+        <td th:text="${ninja.rank}"></td>
+
+        <td >
+            <span th:if="${ninja.missao}"><strong>Nome:</strong> <span th:text="${ninja.missao.nome}"></span>, <strong>Dificuldade</strong> <span th:text="${ninja.missao.dificuldade}"></span> </span>
+            <span th:if="${ninja.missao == null}">Sem Missões</span>
+        </td>
+
+        <td>
+            <div class="actions">
+                <a class="btn-view" th:href="@{/ninjas/ui/listar/{id}(id=${ninja.id})}">
+                    Ver detalhes
+                </a>
+
+                <a class="btn-edit" th:href="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}">
+                    Alterar
+                </a>
+
+                <a class="btn-delete" th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}">
+                    Deletar
+                </a>
+            </div>
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
