@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#f4f7fc;
+            padding:40px;
+            color:#333;
+            display:flex;
+            justify-content:center;
+        }
+
+        .container{
+            background:#fff;
+            max-width:520px;
+            width:100%;
+            padding:32px;
+            border-radius:15px;
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+        }
+
+        h2{
+            color:#991b1b;
+            margin-bottom:20px;
+            font-size:1.5rem;
+        }
+
+        p{
+            margin-bottom:14px;
+            line-height:1.5;
+            font-size:15px;
+        }
+
+        .warning{
+            background:#fee2e2;
+            color:#991b1b;
+            border-radius:10px;
+            padding:14px 16px;
+            font-size:14px;
+            margin-bottom:22px;
+        }
+
+        .actions{
+            display:flex;
+            gap:10px;
+            margin-top:10px;
+        }
+
+        .actions a{
+            text-decoration:none;
+            padding:10px 18px;
+            border-radius:8px;
+            color:white;
+            font-size:14px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .btn-confirm{
+            background:#ef4444;
+        }
+
+        .btn-confirm:hover{
+            background:#dc2626;
+        }
+
+        .btn-cancel{
+            background:#6b7280;
+        }
+
+        .btn-cancel:hover{
+            background:#4b5563;
+        }
+    </style>
+    <title>Confirmar Deleção de Missão</title>
+</head>
+<body>
+<div class="container">
+    <h2>Confirmar exclusão</h2>
+    <p>A missão "<span th:text="${missao.nome}"></span>" tem <span th:text="${missao.ninjas.size()}"></span> ninja(s) vinculado(s).</p>
+    <p class="warning">Ao confirmar, os ninjas serão desvinculados e a missão excluída.</p>
+
+    <div class="actions">
+        <a class="btn-confirm" th:href="@{/missoes/ui/deletar/{id}(id=${missao.id}, confirmar=true)}">Confirmar exclusão</a>
+        <a class="btn-cancel" th:href="@{/missoes/ui/listar}">Cancelar</a>
+    </div>
+</div>
+</body>
+</html>
