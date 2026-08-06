@@ -121,6 +121,7 @@
         /* Action buttons */
         .actions{
             display:flex;
+            align-items:center;
             gap:10px;
         }
 
@@ -167,6 +168,15 @@
             background:#dc2626;
         }
 
+        .btn-nav{
+            background:#6366f1;
+            margin: 10px;
+        }
+
+        .btn-nav:hover{
+            background:#4f46e5;
+        }
+
         /* Responsive */
         @media(max-width:900px){
 
@@ -188,6 +198,7 @@
 <h1>Lista de Missões</h1>
 <div class="actions">
     <a th:href="@{/missoes/ui/adicionar}" class="btn-add">+ Adicionar Missão</a>
+    <a th:href="@{/ninjas/ui/listar}" class="btn-nav">Ver Ninjas</a>
 </div>
 <table>
     <thead>
