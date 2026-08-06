@@ -10,3 +10,16 @@ services:
     ports:
       - "5432:5432"
     restart: always
+
+  app:
+    build: .
+    container_name: app-cadastro-de-ninjas
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    restart: always
