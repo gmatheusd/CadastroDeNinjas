@@ -1,5 +1,6 @@
 package br.com.monkeyscript.CadastroDeNinjas.Missoes;
 
+import br.com.monkeyscript.CadastroDeNinjas.Ninjas.NinjaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +12,12 @@ public class MissoesService {
 
     private final MissoesRepository missoesRepository;
     private final MissoesMapper missoesMapper;
+    private final NinjaRepository ninjaRepository;
 
-    public MissoesService(MissoesRepository missoesRepository, MissoesMapper missoesMapper) {
+    public MissoesService(MissoesRepository missoesRepository, MissoesMapper missoesMapper, NinjaRepository ninjaRepository) {
         this.missoesRepository = missoesRepository;
         this.missoesMapper = missoesMapper;
+        this.ninjaRepository = ninjaRepository;
     }
 
     // Listar todas as missoes
@@ -40,6 +43,14 @@ public class MissoesService {
 
     // Deletar uma missao
     public void deletarMissaoPorId(Long id) {
+        MissoesModel missao = missoesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Missão não encontrada"));
+
+        if (missao.getNinjas() != null && !missao.getNinjas().isEmpty()) {
+            missao.getNinjas().forEach(ninja -> ninja.setMissao(null));
+            ninjaRepository.saveAll(missao.getNinjas());
+        }
+
         missoesRepository.deleteById(id);
     }
 
