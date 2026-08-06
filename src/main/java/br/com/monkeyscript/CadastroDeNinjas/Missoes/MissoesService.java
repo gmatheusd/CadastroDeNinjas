@@ -22,7 +22,7 @@ public class MissoesService {
 
     // Listar todas as missoes
     public List<MissoesDTO> listarMissoes() {
-        List<MissoesModel> missoes = missoesRepository.findAll();
+        List<MissoesModel> missoes = missoesRepository.findAllByOrderByIdAsc();
         return missoes.stream()
                 .map(missoesMapper::map)
                 .collect(Collectors.toList());
