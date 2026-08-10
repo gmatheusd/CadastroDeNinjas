@@ -53,7 +53,6 @@ public class NinjaController {
 
     // Mostrar ninja por Id (READ)
     @GetMapping("/listar/{id}")
-    @PostMapping("/criar")
     @Operation(summary = "Lista o ninja por Id", description = "Ninja encontrado com sucesso")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ninja encontrado com sucesso"),
@@ -74,7 +73,6 @@ public class NinjaController {
 
     // Alterar dados dos ninjas (UPDATE)
     @PutMapping ("/alterar/{id}")
-    @PostMapping("/criar")
     @Operation(summary = "Altera o ninja por Id", description = "Altera o ninja pelo seu Id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ninja alterado com sucesso"),
